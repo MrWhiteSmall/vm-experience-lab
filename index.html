@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#eee9df" />
+    <meta name="description" content="从光盘架选一个世界，在自己的复古电脑里体验另一种操作系统。" />
+    <title>虚拟机体验室 · 换张光盘，换个世界</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23c35c3d'/%3E%3Crect x='7' y='7' width='26' height='21' rx='3' fill='%23efe9d8'/%3E%3Crect x='10' y='10' width='20' height='14' rx='1' fill='%23343c34'/%3E%3Cpath d='M16 28v4h-4v2h16v-2h-4v-4' fill='%23efe9d8'/%3E%3C/svg%3E" />
+    <script src="/vendor/v86/libv86.js" defer></script>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="虚拟机体验室首页"><span class="brand-mark" aria-hidden="true">▣</span><span>虚拟机体验室<small>THE OPERATING ROOM</small></span></a>
+      <nav aria-label="体验室导航"><button class="text-button" id="collection-button">收藏手记 <span>↗</span></button><span class="header-divider"></span><span class="personal-label"><i></i> 私人体验室 <span class="mono">NO. 001</span></span></nav>
+    </header>
+
+    <main>
+      <section class="introduction" aria-label="欢迎">
+        <div><p class="eyebrow">A SMALL DESK. MANY OTHER WORLDS.</p><h1>换张光盘，<em>换个世界。</em></h1></div>
+        <p class="intro-note">不必重装，也不用离开这张桌子。<br>挑一张光盘，看看另一种可能。</p>
+      </section>
+
+      <section class="room" aria-label="复古电脑与系统光盘架">
+        <div class="room-grain" aria-hidden="true"></div>
+        <div class="camera" id="camera">
+          <div class="wall-line" aria-hidden="true"></div>
+          <div class="wall-note" aria-hidden="true"><span class="tape"></span><span class="note-doodle">✳</span>今天，<br>想去哪个世界？<small>从右边挑一张光盘 →</small></div>
+          <div class="desk-shadow" aria-hidden="true"></div>
+          <div class="desk" aria-hidden="true"><div class="desk-edge"></div></div>
+          <div class="desk-mat" aria-hidden="true"></div>
+
+          <div class="computer" id="computer">
+            <div class="monitor">
+              <div class="monitor-top" aria-hidden="true"></div>
+              <div class="monitor-body">
+                <div class="screen-bezel">
+                  <div class="screen" id="screen" tabindex="0" role="group" aria-label="虚拟电脑屏幕，点击后使用键盘和鼠标操作系统">
+                    <div class="idle-screen" id="idle-screen">
+                      <div class="screen-topline"><span>PERSONAL COMPUTER</span><span>◈</span></div>
+                      <div class="pixel-orbit" aria-hidden="true"><svg viewBox="0 0 160 130"><g fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="80" cy="65" rx="48" ry="48"/><ellipse cx="80" cy="65" rx="22" ry="48"/><ellipse cx="80" cy="65" rx="48" ry="17"/><path d="M32 65h96M80 17v96"/><ellipse cx="80" cy="65" rx="75" ry="20" transform="rotate(-28 80 65)"/></g><path d="M134 25v12m-6-6h12M26 94v8m-4-4h8" stroke="currentColor" stroke-width="2"/></svg></div>
+                      <h2>一个小小的入口。<br>一些不同的世界。</h2>
+                      <p>将右侧的系统光盘放入电脑</p>
+                      <div class="idle-bottom"><span><b class="blink">▮</b> 等待光盘</span><span>READY WHEN YOU ARE</span></div>
+                    </div>
+                    <div id="vm-screen" aria-label="正在运行的真实系统画面"><div class="vm-text"></div><canvas></canvas></div>
+                    <div class="boot-overlay" id="boot-overlay" hidden><span class="boot-symbol">▣</span><h2 id="boot-title">正在读取光盘</h2><p id="boot-detail">请稍候…</p><div class="boot-progress"><i id="boot-progress"></i></div></div>
+                    <div class="crt-glass" aria-hidden="true"></div>
+                    <div class="screen-vignette" aria-hidden="true"></div>
+                  </div>
+                </div>
+                <div class="monitor-chin"><span class="computer-wordmark">OTHER<span>WORLD</span><sup>®</sup></span><span class="monitor-model mono">MULTISYNC / 01</span><button class="power-button" id="power-button" aria-label="走近电脑" title="走近电脑"><i></i><span>⏻</span></button></div>
+              </div>
+              <div class="monitor-neck" aria-hidden="true"></div><div class="monitor-foot" aria-hidden="true"></div>
+            </div>
+            <div class="computer-base"><div class="drive" id="drive"><div class="drive-slit"></div><span class="drive-label mono">COMPACT DISC</span><i class="drive-light"></i><span class="drive-eject">▴</span></div><span class="base-badge">OW–486</span><div class="base-vents" aria-hidden="true"></div></div>
+          </div>
+
+          <div class="keyboard" aria-hidden="true"><div class="keyboard-row" data-keys="14"></div><div class="keyboard-row" data-keys="14"></div><div class="keyboard-row" data-keys="13"></div><div class="keyboard-row" data-keys="12"></div><div class="keyboard-row last-row"><i></i><i></i><i class="space"></i><i></i><i></i></div></div>
+          <div class="mouse" aria-hidden="true"><i></i><span></span></div>
+          <div class="mug" aria-hidden="true"><div class="coffee"></div><span>慢慢来。</span><div class="mug-handle"></div></div>
+
+          <aside class="disc-library" id="disc-library" aria-label="系统光盘收藏">
+            <div class="shelf-heading"><span class="eyebrow">THE DISC COLLECTION</span><div><h2>我的光盘架</h2><span class="shelf-counter mono" id="shelf-counter">05 DISCS</span></div></div>
+            <div class="shelf-filters" role="group" aria-label="按光盘特色分类"><button class="active" data-filter="all" aria-pressed="true">全部</button><button data-filter="tiny" aria-pressed="false">微型奇迹</button><button data-filter="desktop" aria-pressed="false">另一种桌面</button><button data-filter="china" aria-pressed="false">国产探索</button></div>
+            <div class="disc-list" id="disc-list"></div>
+            <div class="shelf-bottom"><span>↖ 悬停，看看光盘背后的故事</span><span class="mono">COLLECT MOMENTS, NOT SPECS.</span></div>
+          </aside>
+          <div id="flying-disc" class="flying-disc" aria-hidden="true"><span></span></div>
+        </div>
+
+        <div class="session-toolbar" id="session-toolbar" hidden><button id="back-button">↙ 回到桌面</button><span id="session-name">电脑已就绪</span><div><button id="pause-button" hidden>Ⅱ 暂停</button><button id="fullscreen-button" hidden>⛶ 全屏</button><button id="eject-button" hidden>⏏ 弹出</button></div></div>
+        <div class="room-caption"><span><i></i><span id="room-status" role="status" aria-live="polite">电脑已就绪，等待一张光盘。</span></span><button id="desk-focus-button">走近电脑 <span>↗</span></button></div>
+      </section>
+      <footer class="site-footer"><p>给好奇心留一张桌子。<span>EST. 2026</span></p><span>真实系统 · 本地体验 · 慢慢探索 <span class="footer-star">✳</span></span></footer>
+    </main>
+
+    <div class="discovery-card" id="discovery-card" role="tooltip" hidden></div>
+    <dialog class="details-dialog" id="details-dialog" aria-labelledby="details-title"><button class="dialog-close" aria-label="关闭介绍">×</button><div id="details-content"></div></dialog>
+    <dialog class="collection-dialog" id="collection-dialog" aria-labelledby="collection-title"><button class="dialog-close" aria-label="关闭收藏手记">×</button><p class="eyebrow">FIELD NOTES / 001</p><h2 id="collection-title">每个系统，都有自己的脾气。</h2><p class="dialog-lead">这里收藏不同的交互、工具和系统理念。光盘按体验特点摆放，国别是另一条线索。</p><h3>国产系统，先从这两张认识</h3><div class="domestic-notes"><article><span class="note-index">01 / 桌面</span><h4>deepin · 深度</h4><p>源自中国的 Linux 发行版，独到之处是 DDE 桌面、控制中心和系统应用。适合观察中文桌面如何设计。</p><a href="https://www.deepin.org/zh/" target="_blank" rel="noreferrer">去 deepin 官方网站 ↗</a></article><article><span class="note-index">02 / 桌面</span><h4>openKylin · 开放麒麟</h4><p>由中国社区推动的开源桌面操作系统，重点体验 UKUI 桌面。它与商业麒麟产品属于不同的发行与服务体系。</p><a href="https://www.openkylin.top/" target="_blank" rel="noreferrer">去 openKylin 官方网站 ↗</a></article></div><p>openEuler（开源欧拉）、OpenCloudOS 也是中国发起的开源操作系统社区，更偏服务器场景，后续可以放进“系统实验”分类。DDE、UKUI 是桌面环境；这里的“国产”描述发行版与社区来源。</p><div class="collection-footnote"><b>这张桌子目前能做什么？</b><p>KolibriOS 与 Tiny Core 已接入浏览器里的真实 x86 模拟器。其他光盘提供介绍，暂未接入运行。当前会话不保存，弹出或刷新后修改会丢失。系统画面加载后，点击屏幕即可操作；键盘以英文布局为主。客户系统暂未配置联网。</p></div></dialog>
+  </body>
+</html>

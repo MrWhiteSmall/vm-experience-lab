@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-16",
+  "machine": "Mac mini",
+  "chip": "Apple M4",
+  "architecture": "arm64",
+  "physical_cpu_cores": 10,
+  "logical_cpu_cores": 10,
+  "memory_bytes": 25769803776,
+  "macos": "26.5 (25F71)",
+  "hardware_virtualization_supported": true,
+  "data_volume_reported_capacity_gib": 460,
+  "data_volume_reported_available_gib": 295,
+  "swap_snapshot": {
+    "total_mib": 11264,
+    "used_mib": 10795.94,
+    "free_mib": 468.06
+  },
+  "memory_pressure_query_reported_free_percent": 37,
+  "tools": {
+    "docker_desktop_in_applications": true,
+    "qemu_on_path": false,
+    "common_hypervisor_app_paths_found": []
+  },
+  "limitations": [
+    "Read-only snapshot; available storage and memory change with workload.",
+    "Tools were checked on PATH and in common /Applications paths only.",
+    "Swap usage may reflect history; memory_pressure reported percentage is not a VM allocation guarantee.",
+    "No guest VM boot or performance/installed-disk benchmark was performed.",
+    "Machine serial number and hardware identifiers intentionally omitted."
+  ]
+}

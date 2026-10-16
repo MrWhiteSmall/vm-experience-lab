@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/images/*
+!public/images/.gitkeep
+public/vendor/v86/*
+!public/vendor/v86/.gitkeep
+artifacts/
+.runtime/
