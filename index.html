@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#eee9df" />
+    <meta name="theme-color" content="#e7dfd1" />
+    <script>try{const scene=localStorage.getItem("vm-studio-scene");if(["day","rain","night"].includes(scene))document.documentElement.dataset.scene=scene;}catch{}</script>
     <meta name="description" content="从光盘架选一个世界，在自己的复古电脑里体验另一种操作系统。" />
     <title>虚拟机体验室 · 换张光盘，换个世界</title>
     <link rel="stylesheet" href="/src/style.css" />
@@ -13,21 +14,33 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="虚拟机体验室首页"><span class="brand-mark" aria-hidden="true">▣</span><span>虚拟机体验室<small>THE OPERATING ROOM</small></span></a>
-      <nav aria-label="体验室导航"><button class="text-button" id="collection-button">收藏手记 <span>↗</span></button><span class="header-divider"></span><span class="personal-label"><i></i> 私人体验室 <span class="mono">NO. 001</span></span></nav>
+      <a class="brand" href="/" aria-label="虚拟机体验室首页"><svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="5" y="5" width="30" height="23" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 11h20v11H10zM16 28v6m8-6v6m-12 0h16M15 15l-3 2 3 2m5 0h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>虚拟机体验室<small>Otherworld Studio</small></span></a>
+      <div class="scene-controls" role="group" aria-label="切换工作室氛围">
+        <button data-scene="day" aria-pressed="true"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.2"/><path d="M10 1v2m0 14v2M1 10h2m14 0h2M3.6 3.6l1.5 1.5m9.8 9.8 1.5 1.5M3.6 16.4l1.5-1.5m9.8-9.8 1.5-1.5"/></svg><span>日光</span></button>
+        <button data-scene="rain" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 12a3.5 3.5 0 1 1 .8-6.9A4.5 4.5 0 0 1 14 6a3 3 0 1 1 1 6M6 14l-1 3m5-3-1 3m5-3-1 3"/></svg><span>雨天</span></button>
+        <button data-scene="night" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.8 12.5A7.3 7.3 0 0 1 7.5 3.2a7.4 7.4 0 1 0 9.3 9.3Z"/></svg><span>夜读</span></button>
+      </div>
+      <nav aria-label="体验室导航"><button class="text-button" id="collection-button">收藏手记 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10"/></svg></button><span class="personal-label"><i></i> 私人工作室</span></nav>
     </header>
 
     <main>
-      <section class="introduction" aria-label="欢迎">
-        <div><p class="eyebrow">A SMALL DESK. MANY OTHER WORLDS.</p><h1>换张光盘，<em>换个世界。</em></h1></div>
-        <p class="intro-note">不必重装，也不用离开这张桌子。<br>挑一张光盘，看看另一种可能。</p>
-      </section>
-
       <section class="room" aria-label="复古电脑与系统光盘架">
         <div class="room-grain" aria-hidden="true"></div>
         <div class="camera" id="camera">
-          <div class="wall-line" aria-hidden="true"></div>
-          <div class="wall-note" aria-hidden="true"><span class="tape"></span><span class="note-doodle">✳</span>今天，<br>想去哪个世界？<small>从右边挑一张光盘 →</small></div>
+          <div class="studio-environment" aria-hidden="true">
+            <div class="wall-panels"></div><div class="studio-floor"></div><div class="sunlight"></div>
+            <div class="studio-window"><svg viewBox="0 0 320 370"><use href="/studio-decor.svg#window"/></svg><div class="rain-on-glass"></div></div>
+            <div class="curtain"></div>
+            <div class="wall-print"><svg viewBox="0 0 180 224"><use href="/studio-decor.svg#print"/></svg></div>
+            <div class="wall-shelf"><span class="book b1">INTERFACES</span><span class="book b2">THE INTERNET</span><span class="book b3">1984</span><i class="shelf-orb"></i></div>
+            <div class="floor-plant"><svg viewBox="0 0 240 360"><use href="/studio-decor.svg#plant"/></svg></div>
+            <div class="studio-chair"><svg viewBox="0 0 250 300"><use href="/studio-decor.svg#chair"/></svg></div>
+            <div class="floor-rug"></div>
+            <span class="wall-caption">A room for other possibilities.</span>
+          </div>
+          <section class="introduction" aria-label="欢迎"><h1>给好奇心，<br><em>留一间工作室。</em></h1><p>挑一张光盘，去另一个系统里坐坐。</p></section>
+          <div class="workstation">
+          <div class="wall-note" aria-hidden="true"><span class="tape"></span>别急着做什么。<br>先四处看看。<small>stay curious.</small></div>
           <div class="desk-shadow" aria-hidden="true"></div>
           <div class="desk" aria-hidden="true"><div class="desk-edge"></div></div>
           <div class="desk-mat" aria-hidden="true"></div>
@@ -39,10 +52,10 @@
                 <div class="screen-bezel">
                   <div class="screen" id="screen" tabindex="0" role="group" aria-label="虚拟电脑屏幕，点击后使用键盘和鼠标操作系统">
                     <div class="idle-screen" id="idle-screen">
-                      <div class="screen-topline"><span>PERSONAL COMPUTER</span><span>◈</span></div>
+                      <div class="screen-topline"><span>OTHERWORLD / PERSONAL COMPUTER</span><span class="screen-signal"></span></div>
                       <div class="pixel-orbit" aria-hidden="true"><svg viewBox="0 0 160 130"><g fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="80" cy="65" rx="48" ry="48"/><ellipse cx="80" cy="65" rx="22" ry="48"/><ellipse cx="80" cy="65" rx="48" ry="17"/><path d="M32 65h96M80 17v96"/><ellipse cx="80" cy="65" rx="75" ry="20" transform="rotate(-28 80 65)"/></g><path d="M134 25v12m-6-6h12M26 94v8m-4-4h8" stroke="currentColor" stroke-width="2"/></svg></div>
-                      <h2>一个小小的入口。<br>一些不同的世界。</h2>
-                      <p>将右侧的系统光盘放入电脑</p>
+                      <h2>Hello,<br><em>other worlds.</em></h2>
+                      <p>你的下一次探索，从一张光盘开始</p>
                       <div class="idle-bottom"><span><b class="blink">▮</b> 等待光盘</span><span>READY WHEN YOU ARE</span></div>
                     </div>
                     <div id="vm-screen" aria-label="正在运行的真实系统画面"><div class="vm-text"></div><canvas></canvas></div>
@@ -62,11 +75,16 @@
           <div class="mouse" aria-hidden="true"><i></i><span></span></div>
           <div class="mug" aria-hidden="true"><div class="coffee"></div><span>慢慢来。</span><div class="mug-handle"></div></div>
 
+          <div class="desk-lamp" aria-hidden="true"><svg viewBox="0 0 200 330"><use href="/studio-decor.svg#lamp"/></svg></div>
+          <div class="desk-books" aria-hidden="true"><span>Ways of Seeing</span><span>The Computer Book</span></div>
+          <div class="desk-front" aria-hidden="true"><i></i><i></i></div>
+          </div>
+
           <aside class="disc-library" id="disc-library" aria-label="系统光盘收藏">
-            <div class="shelf-heading"><span class="eyebrow">THE DISC COLLECTION</span><div><h2>我的光盘架</h2><span class="shelf-counter mono" id="shelf-counter">05 DISCS</span></div></div>
+            <div class="shelf-heading"><div><h2>光盘收藏</h2><span class="shelf-counter mono" id="shelf-counter">05 DISCS</span></div><p>一些不同的世界，等你拆封。</p></div>
             <div class="shelf-filters" role="group" aria-label="按光盘特色分类"><button class="active" data-filter="all" aria-pressed="true">全部</button><button data-filter="tiny" aria-pressed="false">微型奇迹</button><button data-filter="desktop" aria-pressed="false">另一种桌面</button><button data-filter="china" aria-pressed="false">国产探索</button></div>
             <div class="disc-list" id="disc-list"></div>
-            <div class="shelf-bottom"><span>↖ 悬停，看看光盘背后的故事</span><span class="mono">COLLECT MOMENTS, NOT SPECS.</span></div>
+            <div class="shelf-bottom"><span>悬停看介绍 · 滚动挑选光盘</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="m6 8 3-2m6 12 3-2"/></svg></div>
           </aside>
           <div id="flying-disc" class="flying-disc" aria-hidden="true"><span></span></div>
         </div>
@@ -74,7 +92,7 @@
         <div class="session-toolbar" id="session-toolbar" hidden><button id="back-button">↙ 回到桌面</button><span id="session-name">电脑已就绪</span><div><button id="pause-button" hidden>Ⅱ 暂停</button><button id="fullscreen-button" hidden>⛶ 全屏</button><button id="eject-button" hidden>⏏ 弹出</button></div></div>
         <div class="room-caption"><span><i></i><span id="room-status" role="status" aria-live="polite">电脑已就绪，等待一张光盘。</span></span><button id="desk-focus-button">走近电脑 <span>↗</span></button></div>
       </section>
-      <footer class="site-footer"><p>给好奇心留一张桌子。<span>EST. 2026</span></p><span>真实系统 · 本地体验 · 慢慢探索 <span class="footer-star">✳</span></span></footer>
+      <footer class="site-footer"><p>一张桌子，可以通往很多地方。</p><span>真实系统 · 本地体验 · 慢慢探索</span></footer>
     </main>
 
     <div class="discovery-card" id="discovery-card" role="tooltip" hidden></div>

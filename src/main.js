@@ -6,6 +6,7 @@ const room = $('.room');
 const screen = $('#screen');
 const vmScreen = $('#vm-screen');
 const tooltip = $('#discovery-card');
+const workstation = $('.workstation');
 let driveTimer;
 let errorTimer;
 let menuTimer;
@@ -96,6 +97,26 @@ function setFocus(focused) {
   $('#power-button').setAttribute('aria-label', focused ? '回到桌面' : '走近电脑');
   if (!focused) releaseInput();
   hideCard();
+}
+
+function fitStudio() {
+  if (state.focused) return;
+  const width = room.clientWidth;
+  const height = room.clientHeight;
+  const stacked = matchMedia('(max-width: 1000px), (max-aspect-ratio: 6/5)').matches;
+  const archiveWidth = parseFloat(getComputedStyle(room).getPropertyValue('--archive-width'));
+  const scale = stacked
+    ? Math.min(.9, (width - 16) / 850)
+    : Math.min(1.16, (height - 90) / 740, (width - archiveWidth - 220) / 850);
+  workstation.style.setProperty('--desk-scale', String(Math.max(.32, scale)));
+}
+
+function setScene(scene) {
+  document.documentElement.dataset.scene = scene;
+  for (const button of document.querySelectorAll('.scene-controls [data-scene]')) {
+    button.setAttribute('aria-pressed', String(button.dataset.scene === scene));
+  }
+  try { localStorage.setItem('vm-studio-scene', scene); } catch {}
 }
 
 function updateControls() {
@@ -354,6 +375,14 @@ document.addEventListener('pointerlockchange', () => {
 document.addEventListener('visibilitychange', () => { if (document.hidden) releaseInput(); });
 new ResizeObserver(fitScreen).observe(screen);
 new ResizeObserver(fitScreen).observe(vmScreen.querySelector('canvas'));
+new ResizeObserver(fitStudio).observe(room);
+for (const button of document.querySelectorAll('.scene-controls [data-scene]')) {
+  const label = `${button.textContent.trim()}工作室`;
+  button.setAttribute('aria-label', label);
+  button.title = label;
+  button.addEventListener('click', () => setScene(button.dataset.scene));
+}
+setScene(document.documentElement.dataset.scene || 'day');
 
 for (const button of document.querySelectorAll('[data-filter]')) button.addEventListener('click', () => {
   state.filter = button.dataset.filter;
@@ -395,3 +424,4 @@ for (const dialog of document.querySelectorAll('dialog')) {
 }
 renderShelf();
 updateControls();
+fitStudio();
