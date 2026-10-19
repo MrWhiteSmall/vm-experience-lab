@@ -10,7 +10,12 @@
 | VGA BIOS | v86 仓库 bios/vgabios.bin；源码来源见 https://github.com/copy/v86/tree/master/bios | LGPL 系列；以对应上游源码及许可为准 |
 | KolibriOS 0.7.7.0-9234-gd5a7ef67e en_US IMG | https://kolibrios.org/en/download 及其官方 builds.kolibrios.org 链接 | KolibriOS 内核及各应用遵循各自许可证；源码 https://git.kolibrios.org/KolibriOS/kolibrios |
 | Tiny Core 16.2 ISO | http://tinycorelinux.net/16.x/x86/release/TinyCore-16.2.iso | 由 Linux 内核、BusyBox、图形组件等组成，分别遵循各自开源许可；源码与许可说明以 http://tinycorelinux.net/ 为准 |
+| FreeDOS 1.4 LiteUSB | https://www.freedos.org/download/ ，官方分发镜像 https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.4/ | 内核、FreeCOM 及工具遵循各自许可，包括 GPL；包内及官网提供各组件许可与源码。使用 ZIP 中的原始 FD14LITE.img，不重新打包系统 |
+| SliTaz 5.0-RC4 / 20260525 rolling ISO | https://mirror.slitaz.org/iso/rolling/ ，项目 https://www.slitaz.org/ | Linux、BusyBox、Openbox 等组件遵循各自许可，包括 GPL；源码、包配方与许可证见 https://hg.slitaz.org/ 及系统内包信息 |
+| Alpine Linux 3.24.2 virt x86 ISO | https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/x86/ ，项目 https://alpinelinux.org/ | Linux、musl、BusyBox、OpenRC 等组件遵循各自许可；包配方和许可证见 https://gitlab.alpinelinux.org/alpine/aports ，源码见 https://distfiles.alpinelinux.org/ |
 
 `scripts/prepare-assets.mjs` 记录每个下载产物的精确 URL、字节数与 SHA-256。KolibriOS IMG 另与官方下载页给出的 SHA-256 比对；Tiny Core 本轮校验预期体积并记录内容 SHA-256，未宣称具备独立官方 SHA-256 签名验证。
+
+FreeDOS ZIP 与官方 verify.txt 中的 SHA-256 比对，解压后的 IMG 另固定 SHA-256；Alpine ISO 与官方 .sha256 比对。SliTaz ISO 与官方 MD5 比对后固定本次观测的 SHA-256；这不是独立的官方 SHA-256 或签名认证。滚动镜像若被上游替换，准备脚本会拒绝不同的大小或 SHA-256，需重新核实后明确更新。
 
 deepin、openKylin、Haiku 等名称仅用于说明对应系统。界面没有打包这些系统的商标图片或系统镜像。所有名称的相关权利归其各自权利人。

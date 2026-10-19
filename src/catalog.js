@@ -1,6 +1,8 @@
 export const categories = {
   tiny: { name: '微型奇迹', english: 'SMALL BUT WONDERFUL' },
   desktop: { name: '另一种桌面', english: 'A DIFFERENT WAY' },
+  classic: { name: '时光档案', english: 'BACK TO THE PROMPT' },
+  lab: { name: '系统实验', english: 'UNDER THE HOOD' },
   china: { name: '国产探索', english: 'MADE CLOSER TO HOME' },
 };
 
@@ -19,6 +21,7 @@ export const discs = [
     description: '只有 24 MiB 的图形版 Linux。把基础系统放进内存，再按需添加扩展。极简，原来也是一种完整的选择。',
     size: '24 MiB', ram: '256 MiB', minimum: '这里分配 256 MiB。官方 FAQ 的 46 MB 是历史下限，不能当作当前版本的体验保证。',
     quest: '打开终端，输入 uname -a，看看这个小系统的内核。', ready: true, image: '/images/tinycore.iso', drive: 'cdrom', memory: 256,
+    bootSteps: [{ text: 'Press ENTER to boot', keys: [0x1c, 0x9c] }],
     official: 'http://tinycorelinux.net/', country: '国际社区',
   },
   {
@@ -44,5 +47,40 @@ export const discs = [
     size: '待核实', ram: '待实测', minimum: '尚未锁定发行版本与镜像；下载体积、ARM 虚拟机兼容性和资源需求待调研。',
     quest: '试试 UKUI 的开始菜单、任务栏与桌面设置。', ready: false,
     official: 'https://www.openkylin.top/', country: '中国 · 国产发行版',
+  },
+  {
+    id: 'freedos', name: 'FreeDOS', number: '006', subtitle: '从一个提示符，回到经典年代', category: 'classic',
+    version: '1.4 · LITEUSB · x86', accent: '#45679a', paper: '#d2deeb', tilt: '.8deg',
+    description: '兼容经典 DOS 的开源系统。没有必须打开的窗口，从盘符、目录和一条条命令开始，认识个人电脑早期的操作方式。这里提供 LiteUSB 基础命令环境，不含完整游戏合集。',
+    size: '32 MiB IMG', ram: '32 MiB', minimum: '官方 ZIP 下载 16.85 MiB，解压镜像 32 MiB。这里分配 32 MiB，不代表官方最低内存。镜像作为临时磁盘运行，自动退出安装器进入 DOS。',
+    quest: '输入 VER 查看版本，DIR 查看目录，再试试 HELP。命令不区分大小写；本次修改在弹出后丢失。',
+    ready: true, image: '/images/freedos.img', drive: 'hda', memory: 32, bootOrder: 0x132,
+    bootSteps: [
+      { text: 'Turkish', delay: 500, keys: [0x1c, 0x9c] },
+      { text: 'Return to DOS', delay: 500, keys: [0xe0, 0x50, 0xe0, 0xd0, 0x1c, 0x9c] },
+      // Clear the installer's exit notice, then show the real shell version.
+      { text: 'C:\\>', delay: 300, keyDelay: 20, keys: [0x2e, 0xae, 0x26, 0xa6, 0x1f, 0x9f, 0x1c, 0x9c, 0x2f, 0xaf, 0x12, 0x92, 0x13, 0x93, 0x1c, 0x9c] },
+    ],
+    official: 'https://www.freedos.org/', country: '国际社区',
+  },
+  {
+    id: 'slitaz', name: 'SliTaz', number: '007', subtitle: '小巧桌面，也有自己的生活', category: 'tiny',
+    version: '5.0-RC4 · 20260525 · x86', accent: '#a86538', paper: '#ecdbb7', tilt: '-.4deg',
+    description: '把 Openbox 桌面、文件管理器和系统工具放进小巧的 Live Linux。和 Tiny Core 比一比：同样轻量，却有另一套桌面组织方式。此处使用官方滚动版的固定快照。',
+    size: '58.98 MiB', ram: '512 MiB', minimum: '此处接入 2026-05-25 官方滚动快照，分配 512 MiB，未测定最低内存。首次引导可能需要约 1–2 分钟。Live 体验无需安装磁盘，软件在线安装暂不可用。',
+    quest: '打开文件管理器逛逛 /home/tux，再打开终端输入 uname -a。系统使用英文界面与美式键盘布局。',
+    ready: true, image: '/images/slitaz.iso', drive: 'cdrom', memory: 512,
+    bootSteps: [{ text: 'Hit RETURN to continue.', keys: [0x1c, 0x9c] }],
+    official: 'https://www.slitaz.org/', country: '国际社区',
+  },
+  {
+    id: 'alpine', name: 'Alpine Linux', number: '008', subtitle: '拆开 Linux，看看里面有什么', category: 'lab',
+    version: '3.24.2 · VIRT · x86', accent: '#3f7380', paper: '#c9dde0', tilt: '.6deg',
+    description: '采用 musl、BusyBox 与 OpenRC 的极简 Linux。这里没有图形桌面，适合从 Shell 里认识系统组成，观察它与常见桌面发行版的差异。',
+    size: '49 MiB', ram: '256 MiB', minimum: '官方 virt x86 ISO 为 49 MiB；这里分配 256 MiB，未测定最低内存。Live 运行不需要安装磁盘，未配置外网，apk 在线安装暂不可用。',
+    quest: '登录名输入 root，无需密码。试试 cat /etc/alpine-release、busybox 和 rc-status，分别看看版本、工具集与服务。',
+    ready: true, image: '/images/alpine.iso', drive: 'cdrom', memory: 256,
+    linuxBoot: { kernel: '/images/alpine-vmlinuz', initrd: '/images/alpine-initramfs', cmdline: 'modules=loop,squashfs,sd-mod,usb-storage quiet console=tty0 vga=normal nomodeset' },
+    official: 'https://alpinelinux.org/', country: '国际社区',
   },
 ];

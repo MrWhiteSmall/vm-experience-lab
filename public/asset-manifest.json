@@ -1,6 +1,6 @@
 {
   "v86": "0.5.471",
-  "prepared_at": "2026-10-16T01:35:33.360Z",
+  "prepared_at": "2026-10-19T01:55:38.096Z",
   "assets": [
     {
       "file": "vendor/v86/seabios.bin",
@@ -25,6 +25,45 @@
       "url": "http://tinycorelinux.net/16.x/x86/release/TinyCore-16.2.iso",
       "bytes": 25165824,
       "sha256": "f26ca71a1bb8534ebad65a5df844d6adc4aba7252910186bef8623d86855db08"
+    },
+    {
+      "file": "images/freedos.img",
+      "url": "https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.4/FD14-LiteUSB.zip",
+      "bytes": 33554432,
+      "sha256": "f539d456b792594bc3ca59d4e0f4c23d4f1fee73370c1390b2da245400718d36",
+      "archive": {
+        "entry": "FD14LITE.img",
+        "bytes": 17671175,
+        "sha256": "857dcd2ebf9d3d094320154db5fb5b830acba6fb98f981a95a0ca7ab3350338b"
+      }
+    },
+    {
+      "file": "images/slitaz.iso",
+      "url": "https://mirror.slitaz.org/iso/rolling/slitaz-rolling.iso",
+      "bytes": 61849600,
+      "sha256": "492b4d846a86443f22a2c58d50e213af9778a979bad2130d614a4efac30df7ee",
+      "source_md5": "fbd81b8d800f314976e9a25a57c33ee6",
+      "snapshot": "2026-05-25"
+    },
+    {
+      "file": "images/alpine.iso",
+      "url": "https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/x86/alpine-virt-3.24.2-x86.iso",
+      "bytes": 51380224,
+      "sha256": "62e752e0f674b1537a7fc38d9c3e6eab9644ae93e8610efb64756a00e7592a10"
+    },
+    {
+      "file": "images/alpine-vmlinuz",
+      "source": "images/alpine.iso",
+      "entry": "boot/vmlinuz-virt",
+      "bytes": 8065536,
+      "sha256": "95c7b7680a8e57707ce383d7908a322d6b6e2cca52e312c915fa8fb155e76630"
+    },
+    {
+      "file": "images/alpine-initramfs",
+      "source": "images/alpine.iso",
+      "entry": "boot/initramfs-virt",
+      "bytes": 7766084,
+      "sha256": "100a80ca2beece44575c25bf7d8c4cd775b10cbf045f520d533355289409c73f"
     }
   ]
 }

@@ -81,15 +81,15 @@
           </div>
 
           <aside class="disc-library" id="disc-library" aria-label="系统光盘收藏">
-            <div class="shelf-heading"><div><h2>光盘收藏</h2><span class="shelf-counter mono" id="shelf-counter">05 DISCS</span></div><p>一些不同的世界，等你拆封。</p></div>
-            <div class="shelf-filters" role="group" aria-label="按光盘特色分类"><button class="active" data-filter="all" aria-pressed="true">全部</button><button data-filter="tiny" aria-pressed="false">微型奇迹</button><button data-filter="desktop" aria-pressed="false">另一种桌面</button><button data-filter="china" aria-pressed="false">国产探索</button></div>
+            <div class="shelf-heading"><div><h2>光盘收藏</h2><span class="shelf-counter mono" id="shelf-counter">08 DISCS</span></div><p>一些不同的世界，等你拆封。</p></div>
+            <div class="shelf-filters" role="group" aria-label="按光盘特色分类"><button class="active" data-filter="all" aria-pressed="true">全部</button><button data-filter="tiny" aria-pressed="false">微型奇迹</button><button data-filter="desktop" aria-pressed="false">另一种桌面</button><button data-filter="classic" aria-pressed="false">时光档案</button><button data-filter="lab" aria-pressed="false">系统实验</button><button data-filter="china" aria-pressed="false">国产探索</button></div>
             <div class="disc-list" id="disc-list"></div>
             <div class="shelf-bottom"><span>悬停看介绍 · 滚动挑选光盘</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="m6 8 3-2m6 12 3-2"/></svg></div>
           </aside>
           <div id="flying-disc" class="flying-disc" aria-hidden="true"><span></span></div>
         </div>
 
-        <div class="session-toolbar" id="session-toolbar" hidden><button id="back-button">↙ 回到桌面</button><span id="session-name">电脑已就绪</span><div><button id="pause-button" hidden>Ⅱ 暂停</button><button id="fullscreen-button" hidden>⛶ 全屏</button><button id="eject-button" hidden>⏏ 弹出</button></div></div>
+        <div class="session-toolbar" id="session-toolbar" hidden><button id="back-button">↙ 回到桌面</button><span id="session-name">电脑已就绪</span><div><button id="session-help-button" hidden>体验提示</button><button id="pause-button" hidden>Ⅱ 暂停</button><button id="fullscreen-button" hidden>⛶ 全屏</button><button id="eject-button" hidden>⏏ 弹出</button></div></div>
         <div class="room-caption"><span><i></i><span id="room-status" role="status" aria-live="polite">电脑已就绪，等待一张光盘。</span></span><button id="desk-focus-button">走近电脑 <span>↗</span></button></div>
       </section>
       <footer class="site-footer"><p>一张桌子，可以通往很多地方。</p><span>真实系统 · 本地体验 · 慢慢探索</span></footer>
@@ -97,6 +97,6 @@
 
     <div class="discovery-card" id="discovery-card" role="tooltip" hidden></div>
     <dialog class="details-dialog" id="details-dialog" aria-labelledby="details-title"><button class="dialog-close" aria-label="关闭介绍">×</button><div id="details-content"></div></dialog>
-    <dialog class="collection-dialog" id="collection-dialog" aria-labelledby="collection-title"><button class="dialog-close" aria-label="关闭收藏手记">×</button><p class="eyebrow">FIELD NOTES / 001</p><h2 id="collection-title">每个系统，都有自己的脾气。</h2><p class="dialog-lead">这里收藏不同的交互、工具和系统理念。光盘按体验特点摆放，国别是另一条线索。</p><h3>国产系统，先从这两张认识</h3><div class="domestic-notes"><article><span class="note-index">01 / 桌面</span><h4>deepin · 深度</h4><p>源自中国的 Linux 发行版，独到之处是 DDE 桌面、控制中心和系统应用。适合观察中文桌面如何设计。</p><a href="https://www.deepin.org/zh/" target="_blank" rel="noreferrer">去 deepin 官方网站 ↗</a></article><article><span class="note-index">02 / 桌面</span><h4>openKylin · 开放麒麟</h4><p>由中国社区推动的开源桌面操作系统，重点体验 UKUI 桌面。它与商业麒麟产品属于不同的发行与服务体系。</p><a href="https://www.openkylin.top/" target="_blank" rel="noreferrer">去 openKylin 官方网站 ↗</a></article></div><p>openEuler（开源欧拉）、OpenCloudOS 也是中国发起的开源操作系统社区，更偏服务器场景，后续可以放进“系统实验”分类。DDE、UKUI 是桌面环境；这里的“国产”描述发行版与社区来源。</p><div class="collection-footnote"><b>这张桌子目前能做什么？</b><p>KolibriOS 与 Tiny Core 已接入浏览器里的真实 x86 模拟器。其他光盘提供介绍，暂未接入运行。当前会话不保存，弹出或刷新后修改会丢失。系统画面加载后，点击屏幕即可操作；键盘以英文布局为主。客户系统暂未配置联网。</p></div></dialog>
+    <dialog class="collection-dialog" id="collection-dialog" aria-labelledby="collection-title"><button class="dialog-close" aria-label="关闭收藏手记">×</button><p class="eyebrow">FIELD NOTES / 001</p><h2 id="collection-title">每个系统，都有自己的脾气。</h2><p class="dialog-lead">这里收藏不同的交互、工具和系统理念。光盘按体验特点摆放，国别是另一条线索。</p><h3>国产系统，先从这两张认识</h3><div class="domestic-notes"><article><span class="note-index">01 / 桌面</span><h4>deepin · 深度</h4><p>源自中国的 Linux 发行版，独到之处是 DDE 桌面、控制中心和系统应用。适合观察中文桌面如何设计。</p><a href="https://www.deepin.org/zh/" target="_blank" rel="noreferrer">去 deepin 官方网站 ↗</a></article><article><span class="note-index">02 / 桌面</span><h4>openKylin · 开放麒麟</h4><p>由中国社区推动的开源桌面操作系统，重点体验 UKUI 桌面。它与商业麒麟产品属于不同的发行与服务体系。</p><a href="https://www.openkylin.top/" target="_blank" rel="noreferrer">去 openKylin 官方网站 ↗</a></article></div><p>openEuler（开源欧拉）、OpenCloudOS 也是中国发起的开源操作系统社区，更偏服务器场景，后续可以放进“系统实验”分类。DDE、UKUI 是桌面环境；这里的“国产”描述发行版与社区来源。</p><div class="collection-footnote"><b>这张桌子目前能做什么？</b><p>KolibriOS、Tiny Core、FreeDOS、SliTaz 与 Alpine 已接入浏览器里的真实 x86 模拟器。其他光盘提供介绍，暂未接入运行。当前会话不保存，弹出或刷新后修改会丢失。系统画面加载后，点击屏幕即可操作；键盘以英文布局为主。客户系统暂未配置联网。</p></div></dialog>
   </body>
 </html>

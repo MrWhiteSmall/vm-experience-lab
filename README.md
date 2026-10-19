@@ -12,7 +12,7 @@ npm run setup:images
 npm run dev
 ```
 
-需要现代桌面浏览器，已在本机 Chrome 验证。推荐 Node.js 22.12+ 的受支持版本；当前开发机使用 Node.js 26。准备资源时需要网络，合计下载约 25 MiB 的系统镜像及少量固件。运行界面、字体、模拟器和已下载系统不依赖外网。系统没有配置外网接入。
+需要现代桌面浏览器，已在本机 Chrome 验证。推荐 Node.js 22.12+ 的受支持版本；当前开发机使用 Node.js 26。资源准备依赖 `curl`、`unzip`、支持 ISO 的 `tar`（本机 bsdtar）和网络，五个系统镜像落盘合计约 165.39 MiB，Alpine 启动文件额外约 15.10 MiB，另有少量固件与模拟器。运行界面、字体、模拟器和已下载系统不依赖外网。系统没有配置外网接入。
 
 ## 当前内容
 
@@ -20,11 +20,16 @@ npm run dev
 |---|---|---|
 | 微型奇迹 | KolibriOS 0.7.7.0，软盘版 | 已接入真实 v86 模拟器，分配 64 MiB RAM |
 | 微型奇迹 | Tiny Core 16.2，24 MiB 图形 ISO | 已接入真实 v86 模拟器，分配 256 MiB RAM |
+| 微型奇迹 | SliTaz 5.0-RC4 / 20260525，58.98 MiB ISO | 接入 v86，分配 512 MiB RAM |
 | 另一种桌面 | Haiku R1/beta6 | 介绍与资源资料，尚未接入运行 |
+| 时光档案 | FreeDOS 1.4 LiteUSB，32 MiB IMG | 接入 v86，分配 32 MiB RAM |
+| 系统实验 | Alpine Linux 3.24.2 virt x86，49 MiB ISO | 接入 v86，分配 256 MiB RAM |
 | 国产探索 | deepin 25.2.0 ARM64 | 介绍与镜像资料，ARM64 本地运行待接入 |
 | 国产探索 | openKylin 开放麒麟 | 介绍，具体版本和运行方式待选 |
 
 没有把未接入的系统画成假桌面，也没有预先下载大型 ARM64 镜像。KolibriOS 的实体表现借用光盘收藏，但本轮实际加载的是 1.44 MB 软盘 IMG；目录中的大小按 MiB 精确显示。
+
+FreeDOS 使用官方 LiteUSB 的基础命令环境，自动选择英语并退出安装器进入 DOS；不是完整游戏或应用合集。Alpine 是纯命令行系统，登录名 `root`、无需密码。SliTaz 使用英语和美式键盘。运行时可随时打开“体验提示”查看该系统的探索任务。镜像来源、精确体积和运行配置见 [docs/browser-systems.md](docs/browser-systems.md)。
 
 完整的 20 项前期调研在 [docs/README.md](docs/README.md)、[docs/catalog.csv](docs/catalog.csv) 与 [docs/catalog.json](docs/catalog.json)。国产系统说明与官方链接见 [docs/domestic-systems.md](docs/domestic-systems.md)。
 
@@ -37,6 +42,7 @@ npm run dev
 - 点击已接入光盘，镜头靠近、播放插入动画并从真实镜像启动。
 - 点击屏幕，开始使用键盘和鼠标；相对鼠标模式会捕获指针，按 Esc 释放鼠标，按 Tab 释放输入。绝对鼠标模式也可以直接点击屏幕外释放输入。
 - 使用工具条暂停、恢复、全屏、弹出；“回到桌面”只拉远镜头，不停止系统。
+- 使用“体验提示”查看当前系统的登录方式和探索任务，关闭介绍后继续操作。
 - 切换到另一张已接入光盘时，介绍页会提示结束当前会话，再由按钮完成换盘。
 - 手机可以使用“i”按钮查看介绍；完整系统操作仍推荐桌面键盘和鼠标。
 
@@ -44,11 +50,11 @@ npm run dev
 
 ## 实现
 
-使用 Vite、原生 JavaScript/CSS 与 v86 0.5.471。工作室、电脑、光盘和场景光照由 CSS/SVG 绘制，Fraunces 字体随项目本地提供；没有运行时外部字体或图片服务。运行引擎使用上游公开 API，包括屏幕容器、启动介质、输入启停、暂停、销毁和画面事件。真实客户系统画面以 canvas 显示。
+使用 Vite、原生 JavaScript/CSS 与 v86 0.5.471。工作室、电脑、光盘和场景光照由 CSS/SVG 绘制，Fraunces 字体随项目本地提供；没有运行时外部字体或图片服务。运行引擎使用上游公开 API，包括屏幕容器、启动介质、输入启停、暂停、销毁和画面事件。真实客户系统画面由 v86 的 canvas 或 VGA 文本适配器显示。
 
 光盘元数据集中在 [src/catalog.js](src/catalog.js)。分类决定光盘架分组，国别/社区来源独立记录。`ready` 仅用于已经接入运行的光盘；增加新系统时需配置对应后端并实测，不能只把该字段改成 true。
 
-v86 当前不支持 64 位客户系统或多核。因此 deepin、现代 Ubuntu/Fedora ARM64 等需要独立的本地虚拟化运行后端，不能直接放入当前模拟器。当前 UI 将它们明确标记为“待接入”。Tiny Core 的原始 ISO 保持不变；应用识别其引导菜单后，通过模拟器键盘接口确认默认启动项，缩短默认的一分钟等待。
+v86 当前不支持 64 位客户系统或多核。因此 deepin、现代 Ubuntu/Fedora ARM64 等需要独立的本地虚拟化运行后端，不能直接放入当前模拟器。当前 UI 将它们明确标记为“待接入”。应用通过 v86 的 VGA 文本等待接口识别引导菜单，再用键盘接口选择体验入口；原始镜像保持不变。Alpine 通过 v86 原生 Linux 引导接口加载从官方 ISO 原样提取的内核与 initramfs，并挂载同一 ISO；启动参数保持纯文本显示，避免依赖短暂的引导菜单。
 
 主机资源基线保存在 [docs/host-baseline.json](docs/host-baseline.json)。这里不宣称已测出所有系统的最低运行资源。
 
@@ -59,11 +65,14 @@ npm run build
 # 在另一个终端保持 npm run dev 运行
 npm run test:browser
 npm run test:layout
+npm run test:systems
 ```
 
 浏览器检查调用本机 Google Chrome，覆盖分类、悬停和键盘介绍卡、国产系统介绍、真实 KolibriOS/Tiny Core 引导、模拟器指令运行、鼠标打开与键盘关闭真实客户系统菜单、捕获后持续输入、暂停/恢复、换盘、弹出释放与手机布局。截图与结果写入 `artifacts/`，不提交到版本库。
 
 布局检查覆盖 320–2560 px 的七组长宽组合，验证电脑、介绍、收藏柜互不遮挡、无横向溢出、操作视图可见，以及三种场景切换和刷新恢复。此项为 Chrome 视口模拟，不代表已在所有实体设备或浏览器中验证。
+
+新增系统检查验证 FreeDOS 的命令行和版本输出、Alpine 的登录和版本输出，以及 SliTaz 的桌面鼠标菜单和键盘操作。
 
 测试为真实引导而非截图替身；首次启动耗时受主机负载影响。`window.vmLab` 提供当前状态及模拟器引用，便于开发控制台检查。
 

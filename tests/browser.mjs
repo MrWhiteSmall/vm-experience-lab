@@ -14,7 +14,7 @@ const record = (name, extra = {}) => { results.push({ name, passed: true, ...ext
 
 try {
   await page.goto('http://127.0.0.1:5196/', { waitUntil: 'networkidle' });
-  await expect(page.locator('.disc-button')).toHaveCount(5);
+  await expect(page.locator('.disc-button')).toHaveCount(8);
   assert(await page.evaluate(() => document.querySelector('.room').getBoundingClientRect().width === innerWidth), 'The experience room must fill the browser width');
   await page.screenshot({ path: 'artifacts/desk.png', fullPage: true });
   await page.locator('[data-start="kolibri"]').hover();

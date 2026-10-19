@@ -9,7 +9,6 @@ const tooltip = $('#discovery-card');
 const workstation = $('.workstation');
 let driveTimer;
 let errorTimer;
-let menuTimer;
 let hoverTimer;
 let hoverDisc;
 let screenWidth = 640;
@@ -122,6 +121,7 @@ function setScene(scene) {
 function updateControls() {
   const exists = Boolean(state.emulator);
   $('#pause-button').hidden = !exists || !['running', 'paused'].includes(state.phase);
+  $('#session-help-button').hidden = !exists;
   $('#fullscreen-button').hidden = !exists || !['running', 'paused'].includes(state.phase);
   $('#eject-button').hidden = state.phase === 'idle';
   $('#pause-button').textContent = state.phase === 'paused' ? '▷ 继续' : 'Ⅱ 暂停';
@@ -132,7 +132,6 @@ function updateControls() {
 async function dispose() {
   clearTimeout(errorTimer);
   clearTimeout(driveTimer);
-  clearInterval(menuTimer);
   $('#drive').classList.remove('reading');
   releaseInput();
   const previous = state.emulator;
@@ -145,7 +144,9 @@ async function dispose() {
 
 async function preflight(disc) {
   if (typeof window.V86 !== 'function') throw new Error('系统运行引擎未准备好。请按项目说明准备本地文件，然后刷新页面。');
-  for (const url of [disc.image, '/vendor/v86/v86.wasm', '/vendor/v86/seabios.bin', '/vendor/v86/vgabios.bin']) {
+  const files = [disc.image, '/vendor/v86/v86.wasm', '/vendor/v86/seabios.bin', '/vendor/v86/vgabios.bin'];
+  if (disc.linuxBoot) files.push(disc.linuxBoot.kernel, disc.linuxBoot.initrd);
+  for (const url of files) {
     const response = await fetch(url, { method: 'HEAD' });
     if (!response.ok || response.headers.get('content-type')?.includes('text/html')) throw new Error('这张光盘的本地文件尚未准备好。请查看项目启动说明。');
   }
@@ -228,7 +229,8 @@ async function startDisc(disc, source) {
       bios: { url: '/vendor/v86/seabios.bin' },
       vga_bios: { url: '/vendor/v86/vgabios.bin' },
       [disc.drive]: { url: disc.image },
-      boot_order: disc.drive === 'fda' ? 0x321 : 0x123,
+      ...(disc.linuxBoot ? { bzimage: { url: disc.linuxBoot.kernel }, initrd: { url: disc.linuxBoot.initrd }, cmdline: disc.linuxBoot.cmdline } : {}),
+      boot_order: disc.bootOrder ?? (disc.drive === 'fda' ? 0x321 : 0x123),
       autostart: true,
     });
     state.emulator = emulator;
@@ -253,17 +255,7 @@ async function startDisc(disc, source) {
       $('#drive').classList.remove('reading');
       updateControls();
       fitScreen();
-      if (disc.id === 'tinycore') {
-        let checks = 0;
-        menuTimer = setInterval(() => {
-          if (token !== state.token || ++checks > 120) { clearInterval(menuTimer); return; }
-          if (vmScreen.innerText.includes('Press ENTER to boot')) {
-            emulator.keyboard_send_scancodes([0x1c, 0x9c]);
-            clearInterval(menuTimer);
-            $('#room-status').textContent = 'Tiny Core 正在引导 · 启动后点击屏幕操作';
-          }
-        }, 250);
-      }
+      prepareGuest(disc, emulator, token).catch(error => fail(error, token));
     });
     emulator.add_listener('screen-set-size', dimensions => {
       if (token !== state.token) return;
@@ -290,6 +282,17 @@ async function startDisc(disc, source) {
       driveTimer = setTimeout(() => $('#drive').classList.remove('reading'), 180);
     });
   } catch (error) { await fail(error, token); }
+}
+
+async function prepareGuest(disc, emulator, token) {
+  for (const step of disc.bootSteps || []) {
+    const pattern = new RegExp(step.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const found = await emulator.wait_until_vga_screen_contains(pattern, { timeout_msec: 45000 });
+    // Some installers finish drawing before they clear their keyboard queue.
+    if (found && step.delay) await new Promise(resolve => setTimeout(resolve, step.delay));
+    if (!found || token !== state.token || state.emulator !== emulator) return;
+    await emulator.keyboard_send_scancodes(step.keys, step.keyDelay);
+  }
 }
 
 async function fail(error, token) {
@@ -399,6 +402,7 @@ $('#desk-focus-button').addEventListener('click', () => setFocus(!state.focused)
 $('#power-button').addEventListener('click', () => setFocus(!state.focused));
 $('#back-button').addEventListener('click', () => setFocus(false));
 $('#eject-button').addEventListener('click', eject);
+$('#session-help-button').addEventListener('click', () => { if (state.disc) showDetails(state.disc); });
 $('#pause-button').addEventListener('click', async () => {
   if (!state.emulator) return;
   if (state.phase === 'running') {
